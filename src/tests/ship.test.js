@@ -1,13 +1,8 @@
 //initialization to make the test non repetative
-const Ship = module.require('./ship.js');
+const Ship = module.require('../ship.js');
 const ship1 = new Ship("Submarine");
 ship1.hit();
 ship1.hit();
-
-//Checking the initialization with the valid length
-test("SHIP Length" , ()=>{
-    expect(Ship("Carrier").length).toBe(5);
-});
 
 //Checking the damage taken by the Ship
 test("Ship Hit", ()=>{

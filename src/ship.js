@@ -30,7 +30,11 @@ const ship = function (name){
         return damage;
     }
 
-    return {length,getDamage, hit, isSunk};
+    function getLength(){
+        return length;
+    }
+
+    return {getDamage, hit, isSunk, getLength};
     
 }
 module.exports = ship;
