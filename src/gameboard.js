@@ -17,37 +17,63 @@ const Gameboard = function (){
         return board;
     }
 
-    function placeShip(type,row,columns){
+    //function to place the ship from a point 
+    function placeShip(type,row,colums){
         let ship = new Ship(type);
         let length = ship.getLength();
         let placed = false;
+        const direction = Math.floor(Math.random()*2); // Returns 0(Horizontal) or  1(Vertical);
        
-        if((row+length)<10 && checkBoard(length,row,columns)){
-            let i =0;
-            while(i<length){
-                board[row+i][columns] = ship;
-                i++;
-            }
-        }         
-        else if((columns+ length)<10 && checkBoard(length,row,columns)){
+        if(direction == 0 && (row+length)<10&& checkBoard(length,row,columns,direction)){
+                let i =0;
+                while(i<length){
+                    board[row+i][columns] = ship;
+                    i++;
+                }
+        }
+        else if (direction == 1 && (columns+length)<10 && checkBoard(length,row,columns,direction)){
             let i =0;
             while(i<length){
                 board[row][columns+i] = ship;
                 i++;
             }
-
         }
         else{
             console.log("Space not empty");
         }
     }
 
-    function checkBoard(row,columns){
-        if (board[row][columns] !== 0){
-            return false
-        }else{
-            return true;
+    function checkBoard(length,row,columns,direction){
+        let empty = false;
+        let i=0;
+        if(direction == 0){
+            while(i< length){
+                if (board[row][columns+i] !== 0){
+                    empty = false;
+                    break;
+                    i++;
+                }
+                else{
+                    empty =true;
+                    i++;
+                }
+            }
         }
+        else{
+            while(i< length){
+                if (board[row+1][columns] !== 0){
+                    empty = false;
+                    break;
+                    i++;
+                }
+                else{
+                    empty =true;
+                    i++;
+                }
+            }
+        }
+
+        return empty;
     }
 
     return {initializeGameBoard,placeShip,getBoard};
