@@ -22,18 +22,42 @@ const Gameboard = function (){
         let length = ship.getLength();
         let placed = false;
        
-        if((length+row) < 9 && (length-row)>9 ){
-            
-        }
+        if((row+length)<10 && checkBoard(length,row,columns)){
+            let i =0;
+            while(i<length){
+                board[row+i][columns] = ship;
+                i++;
+            }
+        }         
+        else if((columns+ length)<10 && checkBoard(length,row,columns)){
+            let i =0;
+            while(i<length){
+                board[row][columns+i] = ship;
+                i++;
+            }
 
-         
+        }
+        else{
+            console.log("Space not empty");
+        }
     }
+
+    function checkBoard(row,columns){
+        if (board[row][columns] !== 0){
+            return false
+        }else{
+            return true;
+        }
+    }
+
+    return {initializeGameBoard,placeShip,getBoard};
 
 };
 
-//Return a random number from 0-9:
-function randomPoint(){
-    return Math.floor(Math.random(10));
-}
+const game = new Gameboard();
+game.initializeGameBoard();
+game.placeShip("Carrier",0,2);
+game.placeShip("Submarine",0,5);
 
+console.table(game.getBoard());
 module.exports = Gameboard;
