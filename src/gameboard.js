@@ -18,62 +18,62 @@ const Gameboard = function (){
     }
 
     //function to place the ship from a point 
-    function placeShip(type,row,colums){
+    function placeShip(type,start,end){
         let ship = new Ship(type);
         let length = ship.getLength();
         let placed = false;
-        const direction = Math.floor(Math.random()*2); // Returns 0(Horizontal) or  1(Vertical);
+        const row_index =0
+        const column_index =1;
+        let direction; // 0-> ROW , 1-> COLUMN
        
-        if(direction == 0 && (row+length)<10&& checkBoard(length,row,columns,direction)){
-                let i =0;
-                while(i<length){
-                    board[row+i][columns] = ship;
-                    i++;
+        if(start[row_index] === end[row_index]){
+            direction = 1; 
+            if(((end[column_index]-start[column_index]) == length) && checkBoard(start,end,direction)){
+                let temp_col = start[1];
+                let temp_row = start[0]
+                while (temp_col < end[1]){
+                    board[temp_row][temp_col] = ship;
+                    temp_col ++;
                 }
-        }
-        else if (direction == 1 && (columns+length)<10 && checkBoard(length,row,columns,direction)){
-            let i =0;
-            while(i<length){
-                board[row][columns+i] = ship;
-                i++;
+
+            }
+            else{
+                console.log(end[column_index]-start[column_index], checkBoard(start,end,direction));
             }
         }
         else{
-            console.log("Space not empty");
+            console.log("Not Empty");
         }
     }
 
-    function checkBoard(length,row,columns,direction){
-        let empty = false;
-        let i=0;
-        if(direction == 0){
-            while(i< length){
-                if (board[row][columns+i] !== 0){
+    function checkBoard(start,end,direction){
+        let empty = true;
+        //Check Row:
+        if(direction === 0){
+            let column_index = start[1];
+            let row_index = start[0];
+            while(row_index <= end[0]){
+                if(board[row_index][column_index] !== 0){
                     empty = false;
                     break;
-                    i++;
                 }
-                else{
-                    empty =true;
-                    i++;
-                }
+                row_index++;
             }
         }
-        else{
-            while(i< length){
-                if (board[row+1][columns] !== 0){
-                    empty = false;
-                    break;
-                    i++;
-                }
-                else{
-                    empty =true;
-                    i++;
-                }
-            }
-        }
+        else if(direction === 1){
+            let row_index = start[0];
+            let column_index = start[1];            
 
-        return empty;
+            while(column_index <= end[1]){
+                if(board[row_index][column_index] !== 0){
+                    empty = false;
+                    break;
+                }
+                column_index++;
+            }
+        }
+       return empty; 
+       
     }
 
     return {initializeGameBoard,placeShip,getBoard};
@@ -82,8 +82,8 @@ const Gameboard = function (){
 
 const game = new Gameboard();
 game.initializeGameBoard();
-game.placeShip("Carrier",0,2);
-game.placeShip("Submarine",0,5);
+game.placeShip("Carrier",[0,0],[0,5]);
+game.placeShip("Submarine",[2,1],[2,3]);
 
 console.table(game.getBoard());
 module.exports = Gameboard;
