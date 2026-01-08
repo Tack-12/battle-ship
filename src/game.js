@@ -1,4 +1,4 @@
-import {Player} from "./player.js";
+Player = module.require("./player.js");
 
 function Gameplay() {
     const body = document.querySelector('body');
