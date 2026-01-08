@@ -1,5 +1,7 @@
 //initialization to make the test non repetative
-const Ship = module.require('../ship.js');
+
+import {Ship} from "../ship.js";
+
 const ship1 = new Ship("Submarine");
 ship1.hit();
 ship1.hit();

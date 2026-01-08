@@ -1,6 +1,5 @@
-import {GameBoard} from "./gameboard.js";
-
-const Player = function (){
+import {Gameboard} from "./gameboard.js";
+export const Player = function (){
 
     function RealPlayer(){
         const board = new GameBoard();
@@ -17,4 +16,3 @@ const Player = function (){
     return {RealPlayer , Computer}
 }
 
-module.exports = Player;

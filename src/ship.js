@@ -1,4 +1,4 @@
-const ship = function (name){
+export const Ship = function (name){
     //initialize Variables
     let length;
     let damage= 0;
@@ -37,4 +37,3 @@ const ship = function (name){
     return {getDamage, hit, isSunk, getLength};
     
 }
-module.exports = ship;

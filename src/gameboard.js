@@ -1,6 +1,6 @@
-const Ship = module.require('./ship.js');
+import {Ship} from "./ship.js";
 
-const Gameboard = function() {
+export const Gameboard = function() {
     const rows = 10;
     const board = new Array(rows);
     const columns = 10;
@@ -127,7 +127,7 @@ const Gameboard = function() {
         let contains_value = false;
 
         loop1:
-        for (j = 0; j < 9; j++) {
+        for (let j = 0; j < 9; j++) {
             if (sunk_boats[j] === obj) {
                 contains_value = true;
                 break loop1;
@@ -147,14 +147,4 @@ const Gameboard = function() {
 };
 
 
-const board = new Gameboard();
-board.initializeGameBoard();
-board.placeShip("Submarine", [1, 2], [3, 2]);
-board.recieveAttack([1, 2]);
-board.recieveAttack([2, 2]);
-console.log(board.getBoard()[1][2].isSunk())
-console.log(board.getSunkBoats());
 
-
-
-module.exports = Gameboard;

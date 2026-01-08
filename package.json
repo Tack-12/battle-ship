@@ -11,9 +11,13 @@
   "scripts": {
     "build": "webpack",
     "dev": "webpack serve",
-    "test": "jest"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "dependencies": {
     "jest": "^30.2.0"
+  },
+  "type": "module",
+  "jest": {
+    "transform": {}
   }
 }
