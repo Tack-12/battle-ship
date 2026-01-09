@@ -1,12 +1,12 @@
-import {Ship} from "./ship.js";
+import { Ship } from "./ship.js";
 
-export const Gameboard = function() {
+export const Gameboard = function () {
     const rows = 10;
     const board = new Array(rows);
     const columns = 10;
     const missed_shots = [];
     const sunk_boats = [];
-    //initializeGameBoard with 0;
+    //initializeGameBoard with 1;
     function initializeGameBoard() {
         for (let j = 0; j < rows; j++) {
             board[j] = new Array(columns).fill(0);
@@ -114,11 +114,11 @@ export const Gameboard = function() {
 
     }
 
-    function checkAllSunk(){
-        if (sunk_boats.length === 5){
+    function checkAllSunk() {
+        if (sunk_boats.length === 5) {
             return true;
         }
-        else{
+        else {
             return false;
         }
     }
@@ -145,6 +145,5 @@ export const Gameboard = function() {
     return { initializeGameBoard, placeShip, getBoard, recieveAttack, getSunkBoats, checkAllSunk };
 
 };
-
 
 
