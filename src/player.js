@@ -10,6 +10,7 @@ export const Player = function () {
         board1.placeShip("Submarine", [7, 0], [9, 0])
         board1.placeShip("Patrol", [1, 3], [1, 4])
         return board1;
+        
     }
 
     function computer() {

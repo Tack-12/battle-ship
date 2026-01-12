@@ -1,0 +1,16 @@
+#LeftBoard{
+    display: grid;
+    grid-template-columns: repeat(10 , 1fr);
+    gap:50px;
+    border: 1px solid black;
+}
+#RightBoard{
+    display: grid;
+    grid-template-columns: repeat(10 , 1fr);
+    gap:50px;
+    border: 1px solid black;
+}
+body{
+    display: flex;
+    gap:100px
+}

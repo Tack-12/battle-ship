@@ -34,15 +34,26 @@ function Gameplay(){
             board = rightBoard;
             player = computer;
         }else{ return ;}
-        
-        const game_board = player.getBoard();
-       
 
+        let current_board = player.getBoard();
+
+        for(let i=0; i<10 ; i++){
+            for (let j=0; j<10; j++){
+                if(current_board[i][j] !== 0){
+                    board.querySelector(`[data-point="${i},${j}"]`).textContent = "SHIP";
+                }
+            }
+        }
+        
     }
-   createBoard();
-   displayShip(1);
-   displayShip(0);
+
+    createBoard();
+    displayShip(0);
+    displayShip(1);
+   
 }
+
+
 
 Gameplay();
 
