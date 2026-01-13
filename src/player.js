@@ -21,9 +21,13 @@ export const Player = function () {
         baord2.placeShip("Destroyer", [2, 8], [5, 8])
         baord2.placeShip("Submarine", [7, 1], [7, 3])
         baord2.placeShip("Patrol", [9, 8], [9, 9])
-        return baord2;
+
+       return baord2;
     }
 
     return { real, computer }
 }
 
+function getRandomPoint(){
+    return Math.floor(Math.random()*10);
+}
