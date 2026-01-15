@@ -52,7 +52,7 @@ function Gameplay() {
                 opponent_box.removeEventListener('click', markHit);
 
                 if (current_board[i][j] !== 0) {
-                    current_box.textContent = "SHIP";
+                    current_box.textContent = "🚢";
                     if (current_board[i][j].isSunk()) {
                         current_box.textContent = "Sunk";
                         current_box.removeEventListener('click', markHit);
@@ -97,6 +97,8 @@ function Gameplay() {
         return new Promise((resolve) => {
             function handle(event) {
                 let box = event.target;
+
+                if(!board.contains(box)) return 
                 box.removeEventListener('click', handle);
                 resolve(box);
             }
@@ -110,23 +112,50 @@ function Gameplay() {
 
         let current_player = 0;
         let i =0;
+        let winner = false;
+        let status = document.querySelector('.gamestatus')
 
         do {
             if (current_player === 0) {
                 hideShip(current_player);
                 displayShip(current_player);
+                status.textContent = "Player 1's turn"
                 const box = await waitForClick(rightBoard);
+                let points = box.dataset.point.split(',')
+                let row = parseInt(points[0]);
+                let column = parseInt(points[1]); 
+                computer.recieveAttack([row , column]);
+                console.log(computer.getSunkBoats());
+                if(player1.checkAllSunk()){
+                    status.textContent = "Player 2 Wins"
+                    console.log("Winner is Player 1")
+                    winner = true;
+                    break;
+                }
                 current_player = 1;
                 i++;
             }
             else {
                 hideShip(current_player);
                 displayShip(current_player);
+                status.textContent = "Player 2's turn"
                 const box = await waitForClick(leftBoard);
+                let points = box.dataset.point.split(',')
+                let row = parseInt(points[0]);
+                let column = parseInt(points[1]); 
+                player1.recieveAttack([row , column]);
+                console.log(player1.getSunkBoats());
+                player1.getSunkBoats();
+                if(player1.checkAllSunk()){
+                    status.textContent = "Player 2 Wins"
+                    console.log("Winner is Player 2")
+                    winner = true;
+                    break;
+                }
                 current_player = 0;
                 i++;
             }
-        }while(i<5)
+        }while(!winner);
         
     }
 
