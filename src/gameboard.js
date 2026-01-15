@@ -67,7 +67,6 @@ export const Gameboard = function () {
             if (!(board[row][column].isSunk())) {
                 board[row][column].hit();
                 //check
-                console.log("RETURNED VALUE", contains(board[row][column]));
                 if (board[row][column].isSunk() && !(contains(board[row][column]))) {
                     sunk_boats.push(board[row][column])
                 }
