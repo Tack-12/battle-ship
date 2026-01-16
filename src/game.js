@@ -43,11 +43,6 @@ function Gameplay() {
     for (let i = 0; i < 10; i++) {
       for (let j = 0; j < 10; j++) {
         let current_box = board.querySelector(`[data-point="${i},${j}"]`);
-        let opponent_box = opponent.querySelector(`[data-point="${i},${j}"]`);
-
-        //ADD EVENT LISTNERS TO CURRENTLY DISPLAYED BOX AND REMOVE FROM THE UNDISPLAYED BOX
-        current_box.addEventListener("click", markHit);
-        opponent_box.removeEventListener("click", markHit);
 
         if (current_board[i][j] !== 0) {
           current_box.textContent = "🚢";
@@ -56,7 +51,6 @@ function Gameplay() {
             current_box.textContent = "🌊";
             current_box.classList.remove("SHIP");
             current_box.classList.add("SHUNK");
-            current_box.removeEventListener("click", markHit);
           }
         } else {
           current_box.textContent = "";
@@ -77,11 +71,6 @@ function Gameplay() {
     for (let child of board.childNodes) {
       child.textContent = "";
     }
-  }
-
-  function markHit(event) {
-    const box = event.target;
-    box.classList.add("clicked");
   }
 
   function waitForClick(board) {
@@ -117,7 +106,7 @@ function Gameplay() {
         let row = parseInt(points[0]);
         let column = parseInt(points[1]);
         computer.recieveAttack([row, column]);
-        changeColor(box);
+        changeColor(box, computer);
         console.log(computer.getSunkBoats());
         if (player1.checkAllSunk()) {
           status.textContent = "Player 2 Wins";
@@ -136,7 +125,7 @@ function Gameplay() {
         let row = parseInt(points[0]);
         let column = parseInt(points[1]);
         player1.recieveAttack([row, column]);
-        changeColor(box);
+        changeColor(box, player1);
         console.log(player1.getSunkBoats());
         player1.getSunkBoats();
         if (player1.checkAllSunk()) {
@@ -150,11 +139,17 @@ function Gameplay() {
       }
     } while (!winner);
 
-    function changeColor(box) {
+    function changeColor(box, player) {
       if (box.classList.contains("SHIP")) {
         box.style.backgroundColor = "yellow";
-      } else if (box.classList.contains("SHUNK")) {
-        box.style.backgroundColor = "red";
+        let board = player.getBoard();
+        for (let i = 0; i < 10; i++) {
+          for (let j = 0; j < 10; j++) {
+            if (board[i][j] != 0 && board[i][j].isSunk()) {
+              board.style.backgroundColor = "red";
+            }
+          }
+        }
       } else {
         box.style.backgroundColor = "gray";
       }

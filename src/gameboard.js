@@ -29,6 +29,7 @@ export const Gameboard = function () {
 
         if (start[row_index] === end[row_index]) {
             direction = 1;
+            console.log(start,end,direction);
             if (((end[column_index] - start[column_index]) == length) && checkBoard(start, end, direction)) {
                 let temp_col = start[1];
                 let temp_row = start[0]
@@ -36,14 +37,13 @@ export const Gameboard = function () {
                     board[temp_row][temp_col] = ship;
                     temp_col++;
                 }
-
+                placed = true;
             }
-            else {
-                console.log("Not Empty");
-            }
+           
         }
         else if (start[column_index] === end[column_index]) {
             direction = 0;
+            console.log(start,end,direction);
             if (((end[row_index] - start[row_index]) == length) && checkBoard(start, end, direction)) {
                 let temp_col = start[1];
                 let temp_row = start[0]
@@ -51,12 +51,11 @@ export const Gameboard = function () {
                     board[temp_row][temp_col] = ship;
                     temp_row++;
                 }
-
+                placed = true;
             }
-            else {
-                console.log("Not Empty");
-            }
+            
         }
+        return placed;
     }
 
     function recieveAttack(point) {
