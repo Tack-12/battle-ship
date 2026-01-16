@@ -1,3 +1,4 @@
+import "./style.css";
 import { Player } from "./player.js";
 
 function Gameplay() {
