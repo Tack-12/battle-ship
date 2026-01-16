@@ -106,7 +106,7 @@ function Gameplay() {
         let row = parseInt(points[0]);
         let column = parseInt(points[1]);
         computer.recieveAttack([row, column]);
-        changeColor(box, computer);
+        changeColor(box,computer);
         console.log(computer.getSunkBoats());
         if (player1.checkAllSunk()) {
           status.textContent = "Player 2 Wins";
@@ -125,7 +125,7 @@ function Gameplay() {
         let row = parseInt(points[0]);
         let column = parseInt(points[1]);
         player1.recieveAttack([row, column]);
-        changeColor(box, player1);
+        changeColor(box,player1);
         console.log(player1.getSunkBoats());
         player1.getSunkBoats();
         if (player1.checkAllSunk()) {
@@ -139,18 +139,18 @@ function Gameplay() {
       }
     } while (!winner);
 
-    function changeColor(box, player) {
+    function changeColor(box,player) {
       if (box.classList.contains("SHIP")) {
         box.style.backgroundColor = "yellow";
-        let board = player.getBoard();
-        for (let i = 0; i < 10; i++) {
-          for (let j = 0; j < 10; j++) {
-            if (board[i][j] != 0 && board[i][j].isSunk()) {
-              board.style.backgroundColor = "red";
-            }
-          }
+        let point = (box.dataset.point).split(",");
+        let board =player.getBoard();
+        console.table(board);
+        console.log(point[0], point[1]);
+        if (board[parseInt(point[0])][parseInt(point[1])].isSunk()){
+          box.style.backgroundColor = "red";
         }
-      } else {
+      } 
+      else {
         box.style.backgroundColor = "gray";
       }
     }
